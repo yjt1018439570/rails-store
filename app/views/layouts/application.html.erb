@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test3</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  
+  </head>
+  
+  <div class="top-content">  
+<header>
+    <!-- Replace with your own image path for logo -->
+    <div class="logo">
+      <%= link_to image_tag("logo.png", alt: "Minishop"), root_path, class: "logo-link" %>
+    </div>
+  <nav>
+    <ul class="navigation">
+      <li><%= link_to 'Shop', root_path %></li>
+      
+      <li><%= link_to 'My Order', orders_path %></li>
+      <% if current_user %>
+      <li><%= link_to "My Profile", user_profile_path(current_user)%></li>
+      <li><%= link_to 'Log out', user_session_path(current_user), data: { turbo_method: :delete } %>
+      <% else %>
+      <li><%= link_to "My Profile", new_user_session_path(current_user)%></li>
+      <li><%= link_to 'Login', new_user_session_path %>
+      <% end %>
+      
+      <li><%= link_to '🛒', cart_path %></li>
+    </ul>
+  </nav>
+</header>
+  
+ <section class="hero">
+        <h1><%= @hero_title || "Shop" %></h1>
+  </section>
+ </div>
+
+
+  <body>
+  <% flash.each do |type, msg| %>
+    <div>
+      <%= msg %>
+    </div>
+  <% end %>
+
+  <%= yield %>
+  </body>
+</html>

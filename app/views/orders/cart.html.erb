@@ -1,0 +1,19 @@
+<!--orders/cart.html.erb-->
+<!-- orders/cart.html.erb -->
+<h1>Your Cart</h1>
+
+<%= form_tag update_cart_path, method: :patch do %>
+  <% @order_groups.each do |order_group| %>
+    <div>
+      <h3><%= order_group.product.name %></h3>
+      <p>Quantity: <%= number_field_tag "cart_items[#{order_group.product.id}][quantity]", order_group.total_quantity, min: 1 %></p>
+      <p>Price: <%= order_group.total_price %></p>
+      <%= link_to 'Delete', remove_item_from_cart_path(item_id: order_group.order_item_id), data: { turbo_method: :delete}, class: 'btn btn-danger' %>
+      <br>
+  <% end %>
+  <%= submit_tag 'Update Cart', class: 'update-cart-button' %>
+<% end %>
+
+<%= form_tag checkout_path, method: :post do %>
+  <%= submit_tag 'Checkout', class: 'checkout-button' %>
+<% end %>

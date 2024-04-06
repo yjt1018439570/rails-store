@@ -1,0 +1,30 @@
+<!--products/index.html.erb-->
+
+<div class="products-container">
+  <h1>Featured Products</h1>
+  <div class="product-grid">
+    <% @products.each do |product| %>
+      <div class="product-card">
+        <div class="product-image-wrapper">
+          <%= image_tag "product-#{product.id}.png", class: "product-image" %>
+          <div class="product-actions">
+            <%= form_tag(orders_path, method: :post) do %>
+              <%= hidden_field_tag :product_id, product.id %>
+              <button type="submit" class="add-to-cart-button">Add to Cart +</button>
+            <% end %>
+            <%= link_to 'View Detail', product_path(product), class: 'buy-now-button' %>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-title"><%= product.name %></h3>
+          <div class="product-price-wrapper">
+            <span class="product-price-new">$<%= product.price %></span>
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+

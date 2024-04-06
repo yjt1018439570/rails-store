@@ -1,0 +1,350 @@
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f5f5f5; /* Light yellow background */
+}
+/*Header part*/
+.logo img {
+  width: 60px;
+  height: 60px;
+  transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.top-content {
+  background-image: url('images/bg.jpg'); /* Ensure this path is correct */
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: transparent; /* Make header background transparent */
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+}
+
+nav ul li {
+  padding: 0 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.hero { 
+  background-position: center; 
+  text-align: center; 
+  padding: 80px 20px; 
+  color: black; 
+}
+/*End of Header part*/
+
+/* Prodcut */
+.products-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Set to three columns */
+  gap: 20px;
+  text-align: center;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  overflow: hidden; /* To ensure buttons don't overflow */
+}
+
+.product-card:hover {
+  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-image-wrapper {
+  position: relative;
+  background: #f7f7f7;
+}
+
+.product-image {
+  background-color: rgb(232, 231, 231);
+  width: 100%;
+  display: block;
+}
+
+.product-actions {
+  display: none;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.product-card:hover .product-actions {
+  display: block;
+}
+
+.add-to-cart-button,
+.buy-now-button {
+  border: none;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  display: inline-flex; /* Use inline-flex to keep buttons in line */
+  align-items: center; /* Align the icon and text vertically */
+  justify-content: center; /* Center the icon and text horizontally */
+  margin: 0 5px; /* Add space between buttons */
+}
+
+.add-to-cart-button {
+  background-color: #000; /* Black background for 'Add to Cart' */
+  color: #fff; /* White text */
+}
+
+.buy-now-button {
+  background-color: #fff; /* White background for 'Buy Now' */
+  color: #000; /* Black text */
+  border: 1px solid #000; /* Black border */
+}
+
+.add-to-cart-button:hover,
+.buy-now-button:hover {
+  background-color: #333; /* Darker background on hover for both buttons */
+  color: #fff; /* White text on hover */
+}
+.product-info {
+  padding: 15px;
+}
+
+.product-title {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.product-price-wrapper {
+  margin: 20px 0;
+}
+
+.product-price-new {
+  font-weight: bold;
+  color: #333;
+}
+
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* End of Product */
+
+/* Start of form*/
+
+.container-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+
+form {
+  margin-top: 20px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%; /* Adjusted width */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  
+}
+
+.btn-login {
+  background-color: #007bff; /* Blue color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  background-color: #0056b3; /* Darker blue color */
+}
+
+.btn-signup {
+  background-color: #28a745; /* Green color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-signup:hover {
+  background-color: #218838; /* Darker green color */
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
+
+.link {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/*End of form*/
+
+/*Start of order*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+thead {
+  background-color: #f4f4f4;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  height: 50px;
+  color: #555;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: 1px solid #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #bd2130;
+  border-color: #bd2130;
+}
+
+p {
+  text-align: center;
+}
+/*End of Order*/
+  
+/*start of profile*/
+.container-profile {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.field {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.field strong {
+  color: #333;
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+.field span {
+  color: #666;
+  font-size: 14px;
+}
+
+.edit-link {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #105cab;
+  background-color: #eef0f3;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid #dcdcdc;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.edit-link:hover, .edit-link:focus {
+  background-color: #105cab;
+  color: #ffffff;
+  text-decoration: none;
+}
+/* End of profile */
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      width: 95%;
+    }
+    
+    nav ul li {
+      display: block;
+      margin: 10px 0;
+    }
+  }
+  

@@ -1,0 +1,120 @@
+<!-- app/views/profiles/show.html.erb -->
+<!-- app/views/profiles/show.html.erb -->
+<div class="container-profile">
+  <h1>User Profile</h1>
+  <div id="profile">
+    <!-- Bio -->
+    <div class="field">
+      <strong>Bio:</strong>
+      <span id="bio_text"><%= @profile.bio || 'Not provided' %></span>
+      <%= link_to 'Edit', '#', id: 'edit_bio', class: 'edit-link', data: {user_id: @user.id}, remote: true %>
+    </div>
+
+    <!-- Location -->
+    <div class="field">
+      <strong>Location:</strong>
+      <span id="location_text"><%= @profile.location || 'Not provided' %></span>
+      <%= link_to 'Edit', '#', id: 'edit_location', class: 'edit-link', data: {user_id: @user.id}, remote: true %>
+    </div>
+
+    <!-- Birthdate -->
+    <div class="field">
+      <strong>Birthdate:</strong>
+      <span id="birthdate_text"><%= @profile.birthdate ? @profile.birthdate.strftime('%B %d, %Y') : 'Not provided' %></span>
+      <%= link_to 'Edit', '#', id: 'edit_birthdate', class: 'edit-link', data: {user_id: @user.id}, remote: true %>
+    </div>
+  </div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  setupInlineEdit('bio', 'text');
+  setupInlineEdit('location', 'text');
+  setupInlineEdit('birthdate', 'date');
+
+  function setupInlineEdit(fieldId, inputType) {
+    const editButton = document.getElementById(`edit_${fieldId}`);
+    editButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      const displaySpan = document.getElementById(`${fieldId}_text`);
+      let value = displaySpan.innerText;
+
+      if (fieldId === 'birthdate' && inputType === 'date') {
+        value = formatDateForInput(value);
+      }
+
+      toggleEditState(fieldId, true, inputType, value);
+      editButton.style.display = 'none'; // Hide edit button
+    });
+  }
+
+  function toggleEditState(fieldId, isEditing, inputType = 'text', value = '') {
+    const displaySpan = document.getElementById(`${fieldId}_text`);
+    const editButton = document.getElementById(`edit_${fieldId}`);
+    let content;
+
+    if (isEditing) {
+      content = `<input type="${inputType}" id="${fieldId}_input" value="${value}" class="form-control">`;
+      content += `<button id="save_${fieldId}" class="btn btn-primary">Save</button>`;
+      displaySpan.innerHTML = content;
+
+      document.getElementById(`save_${fieldId}`).addEventListener('click', function() {
+        const newValue = document.getElementById(`${fieldId}_input`).value;
+        saveField(fieldId, newValue, editButton); // Pass the edit button for later use
+      });
+    } else {
+      displaySpan.innerText = value;
+      editButton.style.display = ''; // Re-show edit button
+    }
+  }
+
+  function formatDateForInput(displayDate) {
+    const dateParts = displayDate.match(/(\w+) (\d{1,2}), (\d{4})/);
+    if (!dateParts) return '';
+
+    const month = new Date(dateParts[1] + " 1").getMonth() + 1;
+    const day = dateParts[2].padStart(2, '0');
+    const year = dateParts[3];
+
+    return `${year}-${month.toString().padStart(2, '0')}-${day}`;
+  }
+
+  function saveField(fieldId, value, editButton) {
+    const userId = document.getElementById(`edit_${fieldId}`).dataset.userId;
+    let data = { profile: {} };
+    data.profile[fieldId] = value;
+
+    fetch(`/users/${userId}/profile`, {
+      method: 'PATCH',
+      headers: {
+        'X-CSRF-Token': document.querySelector('[name=csrf-token]').content,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok.');
+      return response.json();
+    })
+    .then(data => {
+      if (data.success) {
+        if (fieldId === 'birthdate') { // Correct fieldId comparison for birthdate
+          const readableDate = new Date(value).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+          value = readableDate;
+        }
+        toggleEditState(fieldId, false, null, value);
+      } else {
+        throw new Error('Error saving the profile. Please try again.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    })
+    .finally(() => {
+      editButton.style.display = ''; // Ensure edit button is shown again regardless of the result
+    });
+  }
+});
+
+</script>

@@ -1,0 +1,32 @@
+<!--orders/index.html.erb-->
+<h1>Your Orders</h1>
+
+<% if @orders.empty? %>
+  <p>You have no orders.</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Total Items</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.created_at.strftime("%B %d, %Y") %></td>
+          <!-- Assuming order_items method or similar exists to count items -->
+          <td><%= order.order_items.sum(:quantity) %></td>
+          <td>
+            <%= link_to 'View Details', order_path(order), class: 'btn btn-primary' %>
+            <%= link_to 'Delete', delete_order_path(order), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
